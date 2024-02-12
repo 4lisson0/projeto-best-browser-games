@@ -1,13 +1,14 @@
-#root{
-    display: grid;
-    grid: "header" auto
-    "main" 1fr;
+#root {
+  display: grid;
+  grid:
+    'header' auto
+    'main' 1fr;
 }
 
-header{
-    grid-area: header;
+header {
+  grid-area: header;
 }
 
-.home{
-    grid-area: body;
+.home {
+  grid-area: body;
 }
