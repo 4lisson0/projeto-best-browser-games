@@ -19,10 +19,6 @@ const AppHeader = () => {
           </li>
         </ul>
       </nav>
-      <div className="search-bar">
-        <input type="text" placeholder="Pesquisar..." />
-        <button type="submit">Buscar</button>
-      </div>
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import AppHeader from '../../components/Header/AppHeader';
 import AppFooter from '../../components/Footer/AppFooter';
-import { Outlet } from 'react-router-dom';
+import AppTable from '../../components/Table/AppTable';
+
 
 const AppDefaultLayout = () => {
   return (
     <>
       <AppHeader />
-      <Outlet />
+      <AppTable />
       <AppFooter />
     </>
   );

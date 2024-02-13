@@ -1,57 +1,89 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Image } from "@chakra-ui/react";
-import "./table-styles.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+    Table,
+    Thead,
+    Tr,
+    Th,
+    Tbody,
+    Td,
+    Button,
+    CircularProgress,
+    Box,
+    Stack,
+    Input
+} from '@chakra-ui/react'
+import { } from '@chakra-ui/react'
 
-const table = (props) => {
-    const [data, setData] = useState('')
-}
+const gameTable = () => {
+    const [games, setGames] = useState([])
 
-const JogosTable = () => {
+    const getGames = async () => {
+        try {
+            const response = await axios.get(
+                'https://api-best-browser-games.vercel.app/games'
+            );
+
+            const games = response.data
+            setGames(games);
+            console.log(games)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getGames()
+    }, [])
+
     return (
-        <Table variant="simple" className="custom-table">
-            <Thead>
-                <Tr>
-                    <Th>Nome</Th>
-                    <Th>Categoria</Th>
-                    <Th>URL de acesso ao jogo</Th>
-                    <Th>URL do vídeo de demonstração</Th>
-                    <Th>Descrição</Th>
-                    <Th>Imagem ilustrativa</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                <Tr>
-                    <Td>Jogo 1</Td>
-                    <Td>Ação</Td>
-                    <Td>
-                        <a href="#">Acessar</a>
-                    </Td>
-                    <Td>
-                        <a href="#">Ver vídeo</a>
-                    </Td>
-                    <Td>Descrição do Jogo 1</Td>
-                    <Td>
-                        <Image src="caminho_para_imagem_1.jpg" alt="Imagem do Jogo 1" />
-                    </Td>
-                </Tr>
-                <Tr>
-                    <Td>Jogo 2</Td>
-                    <Td>Aventura</Td>
-                    <Td>
-                        <a href="#">Acessar</a>
-                    </Td>
-                    <Td>
-                        <a href="#">Ver vídeo</a>
-                    </Td>
-                    <Td>Descrição do Jogo 2</Td>
-                    <Td>
-                        <Image src="caminho_para_imagem_2.jpg" alt="Imagem do Jogo 2" />
-                    </Td>
-                </Tr>
-                {/* Adicione mais linhas conforme necessário */}
-            </Tbody>
-        </Table>
+        <>
+            <Box margin="30px">
+                <Stack display="flex" flexDirection="row">
+                    <Input variant='filled' placeholder='Filled' />
+                    <Button colorScheme='blue'>Button</Button>
+                </Stack>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Nome</Th>
+                            <Th>Categoria</Th>
+                            <Th>URL de Acesso</Th>
+                            <Th>URL do Vídeo</Th>
+                            <Th>Descrição</Th>
+                            <Th>Imagem</Th>
+                            <Th>Score</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {games.length === 0 ? <CircularProgress isIndeterminate color='blue.300' /> :
+                            games.map(game => (
+                                <Tr key={game.id}>
+                                    <Td fontSize={15}>{game.name}</Td>
+                                    <Td fontSize={15}>{game.category}</Td>
+                                    <Td fontSize={15}>{game.score}</Td>
+                                    <Td fontSize={15}>
+                                        <Button colorScheme='blue'>
+                                            <a href={game.url}>Saiba Mais</a>
+                                        </Button>
+                                    </Td>
+                                    <Td>
+                                        <Button colorScheme='blue'>
+                                            <a href={game.videoURL}>Video</a>
+                                        </Button>
+                                    </Td>
+                                    <Td fontSize={15}>{game.description}</Td>
+                                    <Td>
+                                        <img src={game.imageURL} style={{ maxWidth: "100px" }} />
+                                    </Td>
+                                </Tr>
+                            ))}
+                    </Tbody >
+                </Table>
+            </Box>
+        </>
     );
 };
 
-export default JogosTable;
+export default gameTable;
