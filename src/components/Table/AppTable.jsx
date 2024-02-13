@@ -13,9 +13,8 @@ import {
     Stack,
     Input
 } from '@chakra-ui/react'
-import { } from '@chakra-ui/react'
 
-const gameTable = () => {
+const AppTable = () => {
     const [games, setGames] = useState([])
 
     const getGames = async () => {
@@ -41,8 +40,9 @@ const gameTable = () => {
         <>
             <Box margin="30px">
                 <Stack display="flex" flexDirection="row">
-                    <Input variant='filled' placeholder='Filled' />
-                    <Button colorScheme='blue'>Button</Button>
+                    <Input variant='filled' placeholder='Buscar Game' />
+                    <Button background='#bdeb07'>Buscar</Button>
+                    
                 </Stack>
                 <Table>
                     <Thead>
@@ -57,19 +57,19 @@ const gameTable = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {games.length === 0 ? <CircularProgress isIndeterminate color='blue.300' /> :
+                        {games.length === 0 ? <CircularProgress isIndeterminate color='#bdeb07' /> :
                             games.map(game => (
                                 <Tr key={game.id}>
                                     <Td fontSize={15}>{game.name}</Td>
                                     <Td fontSize={15}>{game.category}</Td>
                                     <Td fontSize={15}>{game.score}</Td>
                                     <Td fontSize={15}>
-                                        <Button colorScheme='blue'>
+                                        <Button background='#bdeb07'>
                                             <a href={game.url}>Saiba Mais</a>
                                         </Button>
                                     </Td>
                                     <Td>
-                                        <Button colorScheme='blue'>
+                                        <Button background='#bdeb07'>
                                             <a href={game.videoURL}>Video</a>
                                         </Button>
                                     </Td>
@@ -86,4 +86,4 @@ const gameTable = () => {
     );
 };
 
-export default gameTable;
+export default AppTable;

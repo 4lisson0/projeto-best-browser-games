@@ -1,21 +1,21 @@
 import './header-styles.css';
+import {
+  Button
+} from '@chakra-ui/react'
 
 const AppHeader = () => {
   return (
     <div className="body">
       <div className="logo">
-        <img src="/public/game_logo.png" alt="Logo" />
+        <img src="/public/game_logo.png" alt="Logo" width="10px"/>
       </div>
       <nav>
         <ul>
           <li>
-            <a href="#">Página 1</a>
+            <Button background='#bdeb07'><a href="/">Lista de Jogos</a></Button>
           </li>
           <li>
-            <a href="#">Página 2</a>
-          </li>
-          <li>
-            <a href="#">Página 3</a>
+            <Button background='#bdeb07'><a href="/register">Registrar Novo Jogo</a></Button>
           </li>
         </ul>
       </nav>

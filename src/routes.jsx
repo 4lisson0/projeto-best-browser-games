@@ -1,14 +1,24 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AppDefaultLayout from './pages/DefaultLayout/AppDefaultLayout';
+import AppForm from './components/Table/AppRegisterGame';
+import AppTable from './components/Table/AppTable'
+import AppHeader from './components/Header/AppHeader';
+import AppFooter from './components/Footer/AppFooter';
+
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AppDefaultLayout />}>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <AppHeader />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AppTable />}>
+          </Route>
+          <Route path="/register" element={<AppForm />}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <AppFooter/>
+    </>
   );
 };
 
