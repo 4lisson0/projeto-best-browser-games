@@ -22,15 +22,14 @@ const AppTable = () => {
             const response = await axios.get(
                 'https://api-best-browser-games.vercel.app/games'
             );
-
-            const games = response.data
+            const games = response.data;
             setGames(games);
-            console.log(games)
+            console.log(games);
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
         getGames()
@@ -42,7 +41,6 @@ const AppTable = () => {
                 <Stack display="flex" flexDirection="row">
                     <Input variant='filled' placeholder='Buscar Game' />
                     <Button background='#bdeb07'>Buscar</Button>
-                    
                 </Stack>
                 <Table>
                     <Thead>
@@ -57,11 +55,13 @@ const AppTable = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {games.length === 0 ? <CircularProgress isIndeterminate color='#bdeb07' /> :
+                        {games.length === 0 ? (
+                            <CircularProgress isIndeterminate color='#bdeb07' />
+                        ) : (
                             games.map(game => (
-                                <Tr key={game.id}>
+                                <Tr key={game._id}>
                                     <Td fontSize={15}>{game.name}</Td>
-                                    <Td fontSize={15}>{game.category}</Td>
+                                    <Td fontSize={15}>{game.category.name}</Td>
                                     <Td fontSize={15}>{game.score}</Td>
                                     <Td fontSize={15}>
                                         <Button background='#bdeb07'>
@@ -78,8 +78,9 @@ const AppTable = () => {
                                         <img src={game.imageURL} style={{ maxWidth: "100px" }} />
                                     </Td>
                                 </Tr>
-                            ))}
-                    </Tbody >
+                            ))
+                        )}
+                    </Tbody>
                 </Table>
             </Box>
         </>

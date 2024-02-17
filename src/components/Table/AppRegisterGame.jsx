@@ -1,6 +1,6 @@
 import React, { FC, FormEvent, useState, ChangeEvent, useEffect } from "react";
 import axios from "axios";
-import { } from "../../types";
+import gamesApi from "../../services/gamesApi";
 import {
     ChakraProvider,
     FormControl,
@@ -29,8 +29,16 @@ function AppForm() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => {
+        await gamesApi.post('/games', {
+        })
+
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         console.log(formData);
     };
 

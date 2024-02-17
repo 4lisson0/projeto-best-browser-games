@@ -7,7 +7,7 @@ const AppHeader = () => {
   return (
     <div className="body">
       <div className="logo">
-        <img src="/public/game_logo.png" alt="Logo" width="10px"/>
+        <img src="public/game_logo.png" alt="Logo" width="10px"/>
       </div>
       <nav>
         <ul>
