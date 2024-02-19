@@ -86,7 +86,7 @@ const AppTable = () => {
                   </Td>
                   <Td>
                     <Button background="#bdeb07">
-                      <a>Mais Detalhes</a>
+                      <a href='/game'>Mais Detalhes</a>
                     </Button>
                   </Td>
                   <Td fontSize={15}>{game.description}</Td>
