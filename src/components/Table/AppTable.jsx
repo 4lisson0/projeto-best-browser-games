@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Table,
   Thead,
@@ -12,15 +12,17 @@ import {
   Box,
   Stack,
   Input,
-} from "@chakra-ui/react";
+  Heading,
+} from '@chakra-ui/react';
 
 const AppTable = () => {
+  const [user, setUser] = useState('Novato');
   const [games, setGames] = useState([]);
 
   const getGames = async () => {
     try {
       const response = await axios.get(
-        "https://api-best-browser-games.vercel.app/games"
+        'https://api-best-browser-games.vercel.app/games',
       );
       const games = response.data;
       setGames(games);
@@ -31,12 +33,21 @@ const AppTable = () => {
   };
 
   useEffect(() => {
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      setUser(JSON.parse(user).name);
+    } else {
+      setUser('Novato');
+    }
+
     getGames();
   }, []);
 
   return (
     <>
       <Box margin="30px">
+        <Heading mb={6}>Bem vindo {user}!</Heading>
         <Stack display="flex" flexDirection="row">
           <Input variant="filled" placeholder="Buscar Game" />
           <Button background="#bdeb07">Buscar</Button>
@@ -80,7 +91,7 @@ const AppTable = () => {
                   </Td>
                   <Td fontSize={15}>{game.description}</Td>
                   <Td>
-                    <img src={game.imageURL} style={{ maxWidth: "100px" }} />
+                    <img src={game.imageURL} style={{ maxWidth: '100px' }} />
                   </Td>
                 </Tr>
               ))
