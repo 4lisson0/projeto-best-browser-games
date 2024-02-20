@@ -20,15 +20,16 @@ const AppGame = () => {
     >
       <Image
         objectFit="cover"
-        width={{ base: "36rem", md: "14rem", lg: "36rem" }}
+        width={{ base: "34em", md: "14rem", lg: "34rem" }}
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Agar.io_Logo.png/800px-Agar.io_Logo.png"
         alt="Caffe Latte"
       />
       <Box display="flex" flexDirection="column" width="100vw">
-        <CardBody display="flex" flexDirection="column" alignItems="center" gap='10'>
+        <CardBody display="flex" flexDirection="column" alignItems="center" gap='8'>
           <Heading size="md">Nome do Jogo</Heading>
           <Text>Descrição do Jogo</Text>
-          <Text>Score do Jogo</Text>
+          <Text>Score do Jogo (média)</Text>
+          <Text>Score do Jogo (usuario)</Text>
           <Text>Categoria</Text>
           <Text>URL de Acesso</Text>
           <Text>URL do Vídeo</Text>
