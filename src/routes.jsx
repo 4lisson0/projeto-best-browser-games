@@ -7,6 +7,7 @@ import AppLogin from './components/Login/AppLogin';
 import AppRegister from './components/Register/AppRegister';
 import AppAccount from './components/Account/AppAccount';
 import AppGame from './components/Game/AppGame';
+import AppCategory from './components/Category/AppCategory'
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
           <Route path="/cadastro" element={<AppRegister />}></Route>
           <Route path="/account" element={<AppAccount />}></Route>
           <Route path="/game" element={<AppGame />}></Route>
+          <Route path="/categoryRegister" element={<AppCategory />}></Route>
         </Routes>
         <AppFooter />
       </BrowserRouter>

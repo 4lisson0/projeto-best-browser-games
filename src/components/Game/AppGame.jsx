@@ -1,14 +1,12 @@
 import {
   Button,
-  ButtonGroup,
   Box,
   Card,
   CardBody,
   CardFooter,
   Heading,
   Text,
-  Stack,
-  Image,
+  Image
 } from "@chakra-ui/react";
 
 const AppGame = () => {

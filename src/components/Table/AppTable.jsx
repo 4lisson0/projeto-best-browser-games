@@ -57,7 +57,7 @@ const AppTable = () => {
             <Tr>
               <Th>Nome</Th>
               <Th>Categoria</Th>
-              <Th>Score</Th>
+              <Th isNumeric>Score</Th>
               <Th>URL de Acesso</Th>
               <Th>URL do Vídeo</Th>
               <Th>Detalhes</Th>
@@ -73,7 +73,7 @@ const AppTable = () => {
                 <Tr key={game._id}>
                   <Td fontSize={15}>{game.name}</Td>
                   <Td fontSize={15}>{game.category.name}</Td>
-                  <Td fontSize={15}>{game.score}</Td>
+                  <Td fontSize={15} isNumeric>{game.score}</Td>
                   <Td fontSize={15}>
                     <Button background="#bdeb07">
                       <a href={game.url}>Saiba Mais</a>
