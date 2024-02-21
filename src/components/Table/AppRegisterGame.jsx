@@ -37,16 +37,25 @@ function AppCategory() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    const formData = {
+      name: data.name,
+      category: {
+        _id: data.categoria,
+      },
+      description: data.descricao,
+      url: data.url,
+      imageURL: data.imageURL,
+      videoURL: data.videoURL,
+    };
     try {
       const token = localStorage.getItem("token");
 
       if (token) {
-        const response = await gamesApi.post("/games", data, {
+        const response = await gamesApi.post("/games", formData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         reset();
         setAlertType("success");
         setAlertMessage("Game cadastrado com sucesso");
@@ -133,7 +142,7 @@ function AppCategory() {
             {...register("categoria", { required: "Categoria é obrigatório" })}
           >
             {categories.map((category) => (
-              <option key={category.id} value={category.name}>
+              <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
@@ -174,6 +183,8 @@ function AppCategory() {
           <Textarea
             id="descricao"
             type="text"
+            maxLength={255}
+      placeholder="Digite até 255 caracteres..."
             {...register("descricao", { required: "Descrição é obrigatório" })}
           />
           <FormErrorMessage>

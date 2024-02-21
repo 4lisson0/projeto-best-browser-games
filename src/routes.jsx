@@ -20,7 +20,7 @@ const Router = () => {
           <Route path="/login" element={<AppLogin />}></Route>
           <Route path="/cadastro" element={<AppRegister />}></Route>
           <Route path="/account" element={<AppAccount />}></Route>
-          <Route path="/game" element={<AppGame />}></Route>
+          <Route path="/game/:id" element={<AppGame />}></Route>
           <Route path="/categoryRegister" element={<AppCategory />}></Route>
         </Routes>
         <AppFooter />

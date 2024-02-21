@@ -55,8 +55,7 @@ function AppForm() {
       const token = localStorage.getItem("token");
 
       if (token) {
-        const response = await gamesApi.post("/categories", data, {
-        });
+        const response = await gamesApi.post("/categories", data, {});
         console.log(response.data);
         reset();
         setAlertType("success");
@@ -120,13 +119,18 @@ function AppForm() {
       <Box margin="30px">
         <Box margin="20px">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl>
+            <FormControl isInvalid={errors.name}>
               <FormLabel>Adicionar uma Nova Categoria</FormLabel>
               <Input
                 id="name"
                 type="text"
+                maxLength={255}
+                placeholder="Digite até 255 caracteres..."
                 {...register("name", { required: "Nome é obrigatório" })}
               />
+              <FormErrorMessage>
+                {errors.name && errors.name.message}
+              </FormErrorMessage>
               <FormHelperText>
                 Coloque o nome da Categoria desejada
               </FormHelperText>
@@ -161,7 +165,11 @@ function AppForm() {
           </Thead>
           <Tbody>
             {categories.length === 0 ? (
-              <CircularProgress isIndeterminate color="#bdeb07" />
+              <Tr>
+                <Td>
+                  <CircularProgress isIndeterminate color="#bdeb07" />
+                </Td>
+              </Tr>
             ) : (
               categories.map((category) => (
                 <Tr key={category._id}>
