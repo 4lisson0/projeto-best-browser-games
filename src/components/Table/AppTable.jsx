@@ -14,6 +14,8 @@ import {
   Stack,
   Input,
   Heading,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 const AppTable = () => {

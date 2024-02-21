@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import './header-styles.css';
-import { Button } from '@chakra-ui/react';
+import { Button, Heading } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import theme from '../Styles/style-app'
 
 const AppHeader = () => {
   const { pathname } = useLocation();
@@ -18,9 +19,10 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="body">
+    <div className="body" theme={theme}>
       <div className="logo">
-        <img src="public/game_logo.png" alt="Logo" width="10px" />
+        <img src="public/3899246.png" alt="Logo" width="10px" />
+        <Heading color="black">Best Browser Games</Heading>
       </div>
       <nav>
         <ul>
