@@ -115,29 +115,29 @@ const AppTable = () => {
   return (
     <>
       <Box margin="30px">
-        <Heading mb={6}>Welcome {user}!</Heading>
+        <Heading mb={6}>Bem vindo {user}!</Heading>
         <Stack display="flex" flexDirection="row">
           <Input
             variant="filled"
-            placeholder="Search Game"
+            placeholder="Buscar jogo por nome ou categoria"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button onClick={handleClearSearch} background="#bdeb07">
-            Clear Search
+            Limpar Busca
           </Button>
         </Stack>
         <Table>
           <Thead>
             <Tr>
-              <Th>Name</Th>
-              <Th>Category</Th>
-              <Th isNumeric>Score</Th>
-              <Th>Access URL</Th>
-              <Th>Video URL</Th>
-              <Th>Details</Th>
-              <Th>Description</Th>
-              <Th>Image</Th>
+              <Th>Nome</Th>
+              <Th>Categoria</Th>
+              <Th isNumeric>Nota</Th>
+              <Th>URL</Th>
+              <Th>Video</Th>
+              <Th>Detalhes</Th>
+              <Th>Descrição</Th>
+              <Th>Imagem</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -187,7 +187,7 @@ const AppTable = () => {
                         background="#bdeb07"
                         onClick={() => handleDelete(game._id)}
                       >
-                        Delete
+                        Remover
                       </Button>
                     </Td>
                   )}
