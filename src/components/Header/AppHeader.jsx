@@ -2,14 +2,17 @@ import { useLocation } from 'react-router-dom';
 import './header-styles.css';
 import { Button, Heading } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import theme from '../Styles/style-app'
 
 const AppHeader = () => {
   const { pathname } = useLocation();
   const [token, setToken] = useState(null);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const { roles } = JSON.parse(localStorage.getItem('user'));
+
+    setRole(roles[0]);
     setToken(token);
   }, [pathname]);
 
@@ -19,7 +22,7 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="body" theme={theme}>
+    <div className="body">
       <div className="logo">
         <img src="public/3899246.png" alt="Logo" width="10px" />
         <Heading color="black">Best Browser Games</Heading>
@@ -56,7 +59,7 @@ const AppHeader = () => {
               <a href="/register">Registrar Novo Jogo</a>
             </Button>
           </li>
-          {token && (
+          {token && role === 'admin' && (
             <li>
               <Button background="#bdeb07">
                 <a href="/account">Minha Conta</a>
