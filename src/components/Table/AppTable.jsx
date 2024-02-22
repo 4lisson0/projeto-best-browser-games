@@ -21,11 +21,13 @@ import {
 const AppTable = () => {
   const [user, setUser] = useState('Novato');
   const [games, setGames] = useState([]);
+  const [filteredGames, setFilteredGames] = useState([]);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('success');
   const navigateTo = useNavigate();
   const [token, setToken] = useState(null);
   const [role, setRole] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,6 +44,7 @@ const AppTable = () => {
       );
       const games = response.data;
       setGames(games);
+      setFilteredGames(games);
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +64,7 @@ const AppTable = () => {
           },
         );
         setGames(games.filter((game) => game._id !== id));
+        setFilteredGames(filteredGames.filter((game) => game._id !== id));
         setAlertType('success');
         setAlertMessage('Game excluído com sucesso');
       } else {
@@ -87,40 +91,64 @@ const AppTable = () => {
     getGames();
   }, []);
 
+  useEffect(() => {
+    if (searchTerm === '') {
+      setFilteredGames(games);
+    } else {
+      const filtered = games.filter(
+        (game) =>
+          game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          game.category.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+      setFilteredGames(filtered);
+    }
+  }, [searchTerm, games]);
+
   const handleGameDetails = (gameId) => {
     navigateTo(`/game/${gameId}`);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
   };
 
   return (
     <>
       <Box margin="30px">
-        <Heading mb={6}>Bem vindo {user}!</Heading>
+        <Heading mb={6}>Welcome {user}!</Heading>
         <Stack display="flex" flexDirection="row">
-          <Input variant="filled" placeholder="Buscar Game" />
-          <Button background="#bdeb07">Buscar</Button>
+          <Input
+            variant="filled"
+            placeholder="Search Game"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <Button onClick={handleClearSearch} background="#bdeb07">
+            Clear Search
+          </Button>
         </Stack>
         <Table>
           <Thead>
             <Tr>
-              <Th>Nome</Th>
-              <Th>Categoria</Th>
+              <Th>Name</Th>
+              <Th>Category</Th>
               <Th isNumeric>Score</Th>
-              <Th>URL de Acesso</Th>
-              <Th>URL do Vídeo</Th>
-              <Th>Detalhes</Th>
-              <Th>Descrição</Th>
-              <Th>Imagem</Th>
+              <Th>Access URL</Th>
+              <Th>Video URL</Th>
+              <Th>Details</Th>
+              <Th>Description</Th>
+              <Th>Image</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {games.length === 0 ? (
+            {filteredGames.length === 0 ? (
               <Tr>
                 <Td>
                   <CircularProgress isIndeterminate color="#bdeb07" />
                 </Td>
               </Tr>
             ) : (
-              games.map((game) => (
+              filteredGames.map((game) => (
                 <Tr key={game._id}>
                   <Td fontSize={15}>{game.name}</Td>
                   <Td fontSize={15}>{game.category.name}</Td>
@@ -129,7 +157,7 @@ const AppTable = () => {
                   </Td>
                   <Td fontSize={15}>
                     <Button background="#bdeb07">
-                      <a href={game.url}>Saiba Mais</a>
+                      <a href={game.url}>Learn More</a>
                     </Button>
                   </Td>
                   <Td>
@@ -142,7 +170,7 @@ const AppTable = () => {
                       background="#bdeb07"
                       onClick={() => handleGameDetails(game._id)}
                     >
-                      Mais Detalhes
+                      More Details
                     </Button>
                   </Td>
                   <Td fontSize={15}>{game.description}</Td>
@@ -150,7 +178,7 @@ const AppTable = () => {
                     <img
                       src={game.imageURL}
                       style={{ maxWidth: '100px' }}
-                      alt="Imagem do jogo"
+                      alt="Game Image"
                     />
                   </Td>
                   {token && role === 'admin' && (
@@ -159,7 +187,7 @@ const AppTable = () => {
                         background="#bdeb07"
                         onClick={() => handleDelete(game._id)}
                       >
-                        Deletar
+                        Delete
                       </Button>
                     </Td>
                   )}
