@@ -10,9 +10,13 @@ const AppHeader = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const { roles } = JSON.parse(localStorage.getItem('user'));
+    let user = localStorage.getItem('user');
 
-    setRole(roles[0]);
+    if (user) {
+      user = JSON.parse(user);
+      setRole(user.roles[0]);
+    }
+
     setToken(token);
   }, [pathname]);
 
