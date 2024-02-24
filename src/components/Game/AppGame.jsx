@@ -26,11 +26,12 @@ import { useParams } from 'react-router-dom';
 
 const AppGame = () => {
   const [categories, setCategories] = useState([]);
-  const [isEditing, SetIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [game, setGame] = useState([]);
-  const { id } = useParams();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('success');
+  const [userRating, setUserRating] = useState(0); // Novo estado para armazenar a avaliação do usuário
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -77,7 +78,7 @@ const AppGame = () => {
       reset();
       setAlertType('success');
       setAlertMessage(message);
-      SetIsEditing(false);
+      setIsEditing(false);
       fetchGame();
       setTimeout(() => setAlertMessage(''), 3000);
     } catch (error) {
@@ -110,7 +111,19 @@ const AppGame = () => {
     setValue('videoURL', game.videoURL);
     setValue('descricao', game.description);
     setValue('imageURL', game.imageURL);
-    SetIsEditing(true);
+    setIsEditing(true);
+  };
+
+  const handleRatingChange = (event) => {
+    setUserRating(parseInt(event.target.value));
+  };
+
+  const handleSubmitRating = async () => {
+    try {
+      console.log("Avaliação submetida:", userRating);
+    } catch (error) {
+      console.error("Erro ao submeter a avaliação:", error);
+    }
   };
 
   return (
@@ -140,128 +153,26 @@ const AppGame = () => {
                 alignItems="center"
                 gap="8"
               >
-                {!isEditing ? (
-                  <>
-                    <Heading size="md">{game.name}</Heading>
-                    <Text>{game.description}</Text>
-                    <Text>{game.score}</Text>
-                    <Text>Score do Jogo (usuario)</Text>
-                    <Text>{game.category.name}</Text>
-                    <Button background="#bdeb07">
-                      <a href={game.url}>Jogar</a>
-                    </Button>
-                    <Button background="#bdeb07">
-                      <a href={game.videoURL}>Video</a>
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <FormControl isInvalid={errors.name}>
-                        <FormLabel>Nome</FormLabel>
-                        <Input
-                          id="name"
-                          type="text"
-                          {...register('name', {
-                            required: 'Nome é obrigatório',
-                          })}
-                        />
-                        <FormErrorMessage>
-                          {errors.name && errors.name.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl mt={4} isInvalid={errors.categoria}>
-                        <FormLabel>Categoria</FormLabel>
-                        <Select
-                          placeholder="Escolha uma categoria"
-                          id="categoria"
-                          type="text"
-                          {...register('categoria', {
-                            required: 'Categoria é obrigatório',
-                          })}
-                        >
-                          {categories.map((category) => (
-                            <option key={category._id} value={category._id}>
-                              {category.name}
-                            </option>
-                          ))}
-                        </Select>
-                        <FormErrorMessage>
-                          {errors.categoria && errors.categoria.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl mt={4} isInvalid={errors.url}>
-                        <FormLabel>URL de acesso ao jogo</FormLabel>
-                        <Input
-                          id="url"
-                          type="text"
-                          {...register('url', {
-                            required: 'URL de Acesso é obrigatório',
-                          })}
-                        />
-                        <FormErrorMessage>
-                          {errors.url && errors.url.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl mt={4} isInvalid={errors.videoURL}>
-                        <FormLabel>URL do vídeo de demonstração</FormLabel>
-                        <Input
-                          id="videoURL"
-                          type="text"
-                          {...register('videoURL', {
-                            required: 'URL de Vídeo é obrigatório',
-                          })}
-                        />
-                        <FormErrorMessage>
-                          {errors.videoURL && errors.videoURL.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl mt={4} isInvalid={errors.descricao}>
-                        <FormLabel>Descrição</FormLabel>
-                        <Textarea
-                          id="descricao"
-                          type="text"
-                          maxLength={255}
-                          placeholder="Digite até 255 caracteres..."
-                          {...register('descricao', {
-                            required: 'Descrição é obrigatório',
-                          })}
-                        />
-                        <FormErrorMessage>
-                          {errors.descricao && errors.descricao.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl mt={4} isInvalid={errors.imageURL}>
-                        <FormLabel>Imagem ilustrativa</FormLabel>
-                        <Input
-                          id="imageURL"
-                          type="text"
-                          {...register('imageURL', {
-                            required: 'URL Image é obrigatório',
-                          })}
-                        />
-                        <FormErrorMessage>
-                          {errors.imageURL && errors.imageURL.message}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        alignItems="baseline"
-                      >
-                        <Button mt={4} background="#bdeb07" type="submit">
-                          Enviar
-                        </Button>
-                        <Button
-                          onClick={() => SetIsEditing(false)}
-                          background="#FFCAD4"
-                        >
-                          Cancelar
-                        </Button>{' '}
-                      </Box>
-                    </form>
-                  </>
-                )}
+                <Heading size="md">{game.name}</Heading>
+                <Text>{game.description}</Text>
+                <Text>{game.score}</Text>
+                <Text>Score do Jogo (usuario)</Text>
+                <Text>{game.category.name}</Text>
+                <Button background="#bdeb07">
+                  <a href={game.url}>Jogar</a>
+                </Button>
+                <Button background="#bdeb07">
+                  <a href={game.videoURL}>Video</a>
+                </Button>
+                {/* Adicionar campo para a avaliação */}
+                <Select placeholder="Avalie o jogo" onChange={handleRatingChange}>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </Select>
+                <Button onClick={handleSubmitRating}>Enviar Avaliação</Button>
               </CardBody>
               <CardFooter
                 display="flex"
