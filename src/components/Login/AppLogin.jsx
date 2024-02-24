@@ -13,8 +13,11 @@ import {
   AlertIcon,
 } from '@chakra-ui/react';
 import gamesApi from '../../services/gamesApi';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const AppLogin = () => {
+  const navigation = useNavigate();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('success');
   const {
@@ -26,8 +29,12 @@ const AppLogin = () => {
   const onSubmit = async (data) => {
     try {
       const response = await gamesApi.post('/users/login', data);
+      const userData = jwtDecode(response.data.token);
 
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      navigation('/');
     } catch (error) {
       setAlertType('error');
       setAlertMessage(error.response.data[0].message);

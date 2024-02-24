@@ -1,7 +1,7 @@
 {
   "name": "best-browser-games",
   "private": true,
-  "version": "0.0.3",
+  "version": "3.0.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,13 +15,16 @@
     "@emotion/styled": "^11.11.0",
     "all": "^0.0.0",
     "axios": "^1.6.7",
+    "expo-font": "^11.10.3",
     "framer-motion": "^11.0.3",
+    "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
+    "react-hook-form": "^7.50.1",
+    "react-router-dom": "^6.22.1",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
